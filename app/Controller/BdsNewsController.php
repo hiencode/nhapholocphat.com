@@ -112,7 +112,7 @@ class BdsNewsController extends AppController {
 			foreach( $bdsNews as $bdsFieldkey => $bdsFieldValue)
 			{
 				 $type = $this->BdsNews->getColumnType($bdsFieldkey);
-				 if($type == 'date' || $type == 'string' ){
+				 if($type == 'date' || $type == 'string'){
 					$bdsNewsFromDB['BdsNews'][$bdsFieldkey] = ($bdsFieldValue == null? null: $bdsFieldValue); 		
 				 } else {
 				 	$bdsNewsFromDB['BdsNews'][$bdsFieldkey] = ($bdsFieldValue == null? '': $bdsFieldValue);
@@ -321,6 +321,21 @@ class BdsNewsController extends AppController {
 				)
 		);
 		if($bdsNews != null){
+
+			$date = new DateTime($bdsNews['BdsNews']['PUBLISHED_BAT_DAU']);
+			$new_date_format = $date->format('d/m/Y');
+			$bdsNews['BdsNews']['PUBLISHED_BAT_DAU'] = $new_date_format;
+			//var_dump($new_date_format);
+			//die;
+
+			$date = new DateTime($bdsNews['BdsNews']['BDS_GIA_RE_BAT_DAU']);
+			$new_date_format = $date->format('d/m/Y');
+			$bdsNews['BdsNews']['BDS_GIA_RE_BAT_DAU'] = $new_date_format;
+
+			$date = new DateTime($bdsNews['BdsNews']['TIN_VIP_BAT_DAU']);
+			$new_date_format = $date->format('d/m/Y');
+			$bdsNews['BdsNews']['TIN_VIP_BAT_DAU'] = $new_date_format;
+
 			$this->set('bdsNews', $bdsNews);
 			
 			$districtList = null;
